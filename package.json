@@ -13,14 +13,15 @@
   "commands": [
     {
       "name": "start-tracker-for-task",
-      "title": "Start tracker for task",
-      "subtitle": "Start the timer to track a specific task",
-      "description": "This command starts the tracking timer for the selected task in Tyme",
+      "title": "Track time in Tyme",
+      "subtitle": "Search any task in Tyme and start tracking time for it",
+      "description": "This command will let you search for any uncompleted task or subtask in Tyme 3 and start the time tracker for that task.",
       "mode": "view"
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.57.2"
+    "@raycast/api": "^1.57.2",
+    "@raycast/utils": "^1.9.1"
   },
   "devDependencies": {
     "@raycast/eslint-config": "1.0.5",
