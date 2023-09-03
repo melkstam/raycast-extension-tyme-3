@@ -2,6 +2,16 @@ import { Action, ActionPanel, Icon, List, closeMainWindow, } from "@raycast/api"
 import { Task, getTasks, startTrackingTask } from "./tasks";
 import { useCachedPromise, useFrecencySorting } from "@raycast/utils";
 
+function getTaskPath(task: Task): string {
+  let path = task.category.name + " > " + task.project.name;
+
+  if (task.parentTask !== undefined) {
+    path += " > " + task.parentTask.name;
+  }
+
+  return path;
+}
+
 function StartTrackerForTask() {
   // Get all tasks
   const { 
@@ -36,7 +46,7 @@ function StartTrackerForTask() {
         <List.Item
           key={task.id}
           title={task.name}
-          accessories={[{ text: `${task.category.name} > ${task.project.name}` }]}
+          accessories={[{ text: getTaskPath(task) }]}
           keywords={[task.category.name, task.project.name]}
           actions={
             <ActionPanel>
