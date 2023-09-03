@@ -101,7 +101,6 @@ export async function getTasks(): Promise<Task[]> {
 }
 
 export async function startTrackingTask(taskId: string): Promise<boolean> {
-  console.log(taskId)
   const res = await runAppleScript(
     `
     const tyme = Application("Tyme");
@@ -109,6 +108,40 @@ export async function startTrackingTask(taskId: string): Promise<boolean> {
     tyme.starttrackerfortaskid("${taskId}");
   `,
   [taskId],
+  {
+    language: "JavaScript",
+  }
+  );
+
+  return JSON.parse(res) 
+}
+
+export async function stopTracking(): Promise<boolean> {
+  const res = await runAppleScript(
+    `
+    const tyme = Application("Tyme")
+
+    // Tasks
+    const tymeTasks = tyme.projects.tasks
+    const taskIds = tymeTasks.id().flat().flat()
+    
+    // Sub tasks
+    const tymeSubTasks = tymeTasks.subtasks
+    const subTaskIds = tymeSubTasks.id().flat().flat()
+    
+    // All task ids
+    const allTaskIds = taskIds.concat(subTaskIds)
+    
+    
+    // Stop all
+    const stopAll = allTaskIds.map((id) => {
+      return tyme.stoptrackerfortaskid(id)
+    })
+    
+    const allSuccessful = stopAll.every(res => res === true)
+    
+    JSON.stringify(allSuccessful, null, 2)
+  `,
   {
     language: "JavaScript",
   }

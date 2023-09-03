@@ -1,5 +1,5 @@
 import { Action, ActionPanel, Icon, List, closeMainWindow, } from "@raycast/api";
-import { Task, getTasks, startTrackingTask } from "./getTasks";
+import { Task, getTasks, startTrackingTask } from "./tasks";
 import { useCachedPromise, useFrecencySorting } from "@raycast/utils";
 
 function StartTrackerForTask() {

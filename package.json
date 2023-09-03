@@ -17,6 +17,13 @@
       "subtitle": "Search any task in Tyme and start tracking time for it",
       "description": "This command will let you search for any uncompleted task or subtask in Tyme 3 and start the time tracker for that task.",
       "mode": "view"
+    },
+    {
+      "name": "stop-tracking",
+      "title": "Stop Tracking Time in Tyme",
+      "subtitle": "Stop tracking the current task",
+      "description": "This command will let you stop tracking the current task in Tyme",
+      "mode": "no-view"
     }
   ],
   "dependencies": {
