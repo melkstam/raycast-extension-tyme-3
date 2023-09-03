@@ -3,6 +3,7 @@ import { Task, getTasks, startTrackingTask } from "./getTasks";
 import { useCachedPromise, useFrecencySorting } from "@raycast/utils";
 
 function StartTrackerForTask() {
+  // Get all tasks
   const { 
     data: tasks,
     isLoading: tasksIsLoading,
@@ -13,10 +14,17 @@ function StartTrackerForTask() {
       keepPreviousData: true,
     }
   )
-  const { data: sortedTasks, visitItem: visitTask, resetRanking: resetTaskRanking } = useFrecencySorting(tasks);
+
+  // Sort by frequency
+  const { 
+    data: sortedTasks,
+    visitItem: visitTask,
+    resetRanking: resetTaskRanking 
+  } = useFrecencySorting(tasks);
 
 
-  const handleTaskVisit = (task: Task) => {
+  // Handle start tracking
+  const handleStartTracking = (task: Task) => {
     closeMainWindow({ clearRootSearch: true });
     visitTask(task);
     startTrackingTask(task.id)
@@ -32,7 +40,7 @@ function StartTrackerForTask() {
           keywords={[task.category.name, task.project.name]}
           actions={
             <ActionPanel>
-              <Action title="Start Tracking" icon={Icon.Stopwatch} onAction={() => handleTaskVisit(task)} />
+              <Action title="Start Tracking" icon={Icon.Stopwatch} onAction={() => handleStartTracking(task)} />
               <Action title="Reset Sorting for Task" icon={Icon.ArrowCounterClockwise} onAction={() => resetTaskRanking(task)} />
             </ActionPanel>
           }

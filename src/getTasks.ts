@@ -38,7 +38,6 @@ export async function getTasks(): Promise<Task[]> {
     
     const projectIds = tymeProjects.id()
     const projectNames = tymeProjects.name()
-    const projectCategoryIds = tymeProjects.categoryid()
     
     const projects = projectIds.map((id, index) => {
       return {
@@ -101,7 +100,7 @@ export async function getTasks(): Promise<Task[]> {
   return JSON.parse(res) as Task[];
 }
 
-export async function startTrackingTask(taskId: string) {
+export async function startTrackingTask(taskId: string): Promise<boolean> {
   console.log(taskId)
   const res = await runAppleScript(
     `
@@ -115,6 +114,5 @@ export async function startTrackingTask(taskId: string) {
   }
   );
 
-  console.debug(res)
-
+  return JSON.parse(res) 
 }
