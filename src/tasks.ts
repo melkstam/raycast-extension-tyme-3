@@ -5,7 +5,7 @@ export interface Task {
   id: string;
   name: string;
   parentTask?: Task, 
-  category: {
+  category?: {
     id: string;
     name: string;
   },

@@ -3,13 +3,9 @@ import { Task, getTasks, startTrackingTask } from "./tasks";
 import { useCachedPromise, useFrecencySorting } from "@raycast/utils";
 
 function getTaskPath(task: Task): string {
-  let path = task.category.name + " > " + task.project.name;
-
-  if (task.parentTask !== undefined) {
-    path += " > " + task.parentTask.name;
-  }
-
-  return path;
+  return [task.category?.name, task.project.name, task.parentTask?.name]
+    .filter((segment): segment is string => segment !== undefined)
+    .join(" > ");
 }
 
 function StartTrackerForTask() {
@@ -47,7 +43,10 @@ function StartTrackerForTask() {
           key={task.id}
           title={task.name}
           accessories={[{ text: getTaskPath(task) }]}
-          keywords={[task.category.name, task.project.name]}
+          keywords={
+            [task.category?.name, task.project.name, task.parentTask?.name]
+              .filter((segment): segment is string => segment !== undefined)
+          }
           actions={
             <ActionPanel>
               <Action title="Start Tracking" icon={Icon.Stopwatch} onAction={() => handleStartTracking(task)} />
