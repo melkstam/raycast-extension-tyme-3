@@ -1,7 +1,7 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "track-time-with-tyme-3",
-  "title": "Track time with Tyme 3",
+  "name": "tyme-3-time-tracker",
+  "title": "Tyme 3 Time Tracker",
   "description": "Interact with Tyme 3 to track your time",
   "icon": "command-icon.png",
   "author": "melkstam",
@@ -12,16 +12,16 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "start-tracker-for-task",
-      "title": "Track time in Tyme",
-      "subtitle": "Search any task in Tyme and start tracking time for it",
+      "name": "start-task-tracking",
+      "title": "Start Task",
+      "subtitle": "Start Tracking for a Tyme Task",
       "description": "This command will let you search for any uncompleted task or subtask in Tyme 3 and start the time tracker for that task.",
       "mode": "view"
     },
     {
-      "name": "stop-tracking",
-      "title": "Stop Tracking Time in Tyme",
-      "subtitle": "Stop tracking the current task",
+      "name": "stop-task-tracking",
+      "title": "Stop Task",
+      "subtitle": "Stop Tracking for the Current Tyme Task",
       "description": "This command will let you stop tracking the current task in Tyme",
       "mode": "no-view"
     }

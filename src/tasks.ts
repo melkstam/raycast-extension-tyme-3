@@ -1,18 +1,17 @@
 import { runAppleScript } from "@raycast/utils";
 
-
 export interface Task {
   id: string;
   name: string;
-  parentTask?: Task, 
+  parentTask?: Task;
   category?: {
     id: string;
     name: string;
-  },
+  };
   project: {
     id: string;
     name: string;
-  }
+  };
 }
 
 export async function getTasks(): Promise<Task[]> {
@@ -107,13 +106,13 @@ export async function startTrackingTask(taskId: string): Promise<boolean> {
 
     tyme.starttrackerfortaskid("${taskId}");
   `,
-  [taskId],
-  {
-    language: "JavaScript",
-  }
+    [taskId],
+    {
+      language: "JavaScript",
+    }
   );
 
-  return JSON.parse(res) 
+  return JSON.parse(res);
 }
 
 export async function stopTracking(): Promise<boolean> {
@@ -142,10 +141,10 @@ export async function stopTracking(): Promise<boolean> {
     
     JSON.stringify(allSuccessful, null, 2)
   `,
-  {
-    language: "JavaScript",
-  }
+    {
+      language: "JavaScript",
+    }
   );
 
-  return JSON.parse(res) 
+  return JSON.parse(res);
 }
