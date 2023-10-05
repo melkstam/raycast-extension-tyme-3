@@ -45,7 +45,21 @@ export async function getTasks(): Promise<Task[]> {
       }
     })
     
-    // Tasks gories.find(category => category.id === taskCategoryIds[index]),
+    // Tasks
+    const tymeTasks = tymeProjects.tasks.whose({ completed: false })
+    
+    const taskIds = tymeTasks.id().flat().flat()
+    const taskNames = tymeTasks.name().flat().flat()
+    const taskProjectIds = tymeTasks.relatedprojectid().flat().flat()
+    const taskCategoryIds = tymeTasks.relatedcategoryid().flat().flat()
+    
+    
+    const tasks = taskIds.map((id, index) => {
+      return {
+        id: id,
+        name: taskNames[index],
+        project: projects.find(project => project.id === taskProjectIds[index]),
+        category: categories.find(category => category.id === taskCategoryIds[index]),
       }
     })
     
