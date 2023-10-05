@@ -15,11 +15,7 @@ function StartTrackerForTask() {
   });
 
   // Sort by frequency
-  const {
-    data: sortedTasks,
-    visitItem: visitTask,
-    resetRanking: resetTaskRanking
-  } = useFrecencySorting(tasks);
+  const { data: sortedTasks, visitItem: visitTask, resetRanking: resetTaskRanking } = useFrecencySorting(tasks);
 
   // Handle start tracking
   const handleStartTracking = async (task: Task) => {
