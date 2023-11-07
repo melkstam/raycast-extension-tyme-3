@@ -86,7 +86,8 @@ export async function getTasks(): Promise<Task[]> {
     
     
     // All tasks
-    const allTasks = tasks.filter(task => !parentTaskIds.has(task.id)).concat(subTasks);
+    const tasksWithoutSubTasks = tasks.filter(task => subTasks.every(subTask => subTask.parentTask?.id !== task.id))
+    const allTasks = tasksWithoutSubTasks.concat(subTasks);
         
     // "Return"
     JSON.stringify(allTasks)
