@@ -94,6 +94,7 @@ export async function getTasks(): Promise<Task[]> {
 `,
     {
       language: "JavaScript",
+      timeout: 30 * 1000,
     }
   );
 
