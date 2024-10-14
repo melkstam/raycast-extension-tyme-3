@@ -21,39 +21,39 @@ export async function getTasks(): Promise<Task[]> {
 
     // Categories
     const tymeCategories = tyme.categories
-    
+
     const categoryIds = tymeCategories.id()
     const categoryNames = tymeCategories.name()
-    
+
     const categories = categoryIds.map((id, index) => {
       return {
         id: id,
         name: categoryNames[index],
       }
     })
-    
+
     // Projects
     const tymeProjects = tyme.projects.whose({ completed: false })
-    
+
     const projectIds = tymeProjects.id()
     const projectNames = tymeProjects.name()
-    
+
     const projects = projectIds.map((id, index) => {
       return {
         id: id,
         name: projectNames[index],
       }
     })
-    
+
     // Tasks
     const tymeTasks = tymeProjects.tasks.whose({ completed: false })
-    
+
     const taskIds = tymeTasks.id().flat().flat()
     const taskNames = tymeTasks.name().flat().flat()
     const taskProjectIds = tymeTasks.relatedprojectid().flat().flat()
     const taskCategoryIds = tymeTasks.relatedcategoryid().flat().flat()
-    
-    
+
+
     const tasks = taskIds.map((id, index) => {
       return {
         id: id,
@@ -62,17 +62,17 @@ export async function getTasks(): Promise<Task[]> {
         category: categories.find(category => category.id === taskCategoryIds[index]),
       }
     })
-    
-    
+
+
     // Sub tasks
     const tymeSubTasks = tymeTasks.subtasks.whose({ completed: false })
-    
+
     const subTaskIds = tymeSubTasks.id().flat().flat()
     const subTaskNames = tymeSubTasks.name().flat().flat()
     const subTaskParentIds = tymeSubTasks.relatedtaskid().flat().flat()
     const subTaskProjectIds = tymeSubTasks.relatedprojectid().flat().flat()
     const subTaskCategoryIds = tymeSubTasks.relatedcategoryid().flat().flat()
-    
+
     const subTasks = subTaskIds.map((id, index) => {
       return {
         id: id,
@@ -82,19 +82,18 @@ export async function getTasks(): Promise<Task[]> {
         category: categories.find(category => category.id === subTaskCategoryIds[index]),
       }
     })
-    
-    
-    
+
+
     // All tasks
     const tasksWithoutSubTasks = tasks.filter(task => subTasks.every(subTask => subTask.parentTask?.id !== task.id))
     const allTasks = tasksWithoutSubTasks.concat(subTasks);
-        
+
     // "Return"
     JSON.stringify(allTasks)
 `,
     {
       language: "JavaScript",
-      timeout: 30 * 1000,
+      timeout: 60 * 1000,
     }
   );
 
@@ -125,22 +124,22 @@ export async function stopTracking(): Promise<boolean> {
     // Tasks
     const tymeTasks = tyme.projects.tasks
     const taskIds = tymeTasks.id().flat().flat()
-    
+
     // Sub tasks
     const tymeSubTasks = tymeTasks.subtasks
     const subTaskIds = tymeSubTasks.id().flat().flat()
-    
+
     // All task ids
     const allTaskIds = taskIds.concat(subTaskIds)
-    
-    
+
+
     // Stop all
     const stopAll = allTaskIds.map((id) => {
       return tyme.stoptrackerfortaskid(id)
     })
-    
+
     const allSuccessful = stopAll.every(res => res === true)
-    
+
     JSON.stringify(allSuccessful, null, 2)
   `,
     {
